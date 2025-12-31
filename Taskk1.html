@@ -1,0 +1,196 @@
+<html>
+  <head>
+
+  </head>
+  <body>
+    <ul id="unlist"></ul>
+    <h3>Student table list</h3>
+<table id="studenttable" border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Marks</th>
+      <th>Department</th>
+      
+    </tr>
+  </thead>
+  <tbody id="tdisplay">
+  </tbody>
+</table>
+
+  </body>
+  <script>
+    
+const students = [
+  { id: 1, name: "Amit", marks: 78, department: "CSE" },
+  { id: 2, name: "Priya", marks: 92, department: "ECE" },
+  { id: 3, name: "Rahul", marks: 45, department: "MECH" },
+  { id: 4, name: "Sneha", marks: 66, department: "CSE" },
+  { id: 5, name: "Kiran", marks: 88, department: "ECE" }
+];
+//Display all student names in an HTML unordered list
+let unorderlist1 = document.getElementById("unlist")
+
+for(let unorderlist of students){
+  const listitem = document.createElement("li");
+
+  listitem.textContent=unorderlist.name;
+  unorderlist1.appendChild(listitem)
+}
+//Display only students who scored more than 60 marks.
+for(let maxstudent of students){
+  if(maxstudent.marks>60){
+    document.writeln(maxstudent.name)
+  }
+}
+
+document.writeln("<br>")
+
+//students belong to each department
+for(let i = 0; i<students.length;i++){
+  let dc = 0;
+  for(let j = 0; j<students.length;j++){
+    if(students[i].department===students[j].department){
+      dc++;
+
+    }
+  }
+  document.writeln(students[i].department + "count is :"+dc)
+}
+
+ document.writeln("<br>")
+
+//Find the student with the highest marks
+let maxhighest = students[0];
+for(let high of students){
+  if(high.marks>maxhighest.marks){
+    maxhighest = high
+  }
+}
+document.writeln(maxhighest.marks)
+
+
+ document.writeln("<br>")
+
+
+//Calculate the average marks of all students.
+let averagemarks=0;
+for(let avgmarks of students){
+   averagemarks += avgmarks.marks;
+  }
+document.writeln(averagemarks/students.length)
+
+
+document.writeln("<br>")
+
+//descending order
+let ll = [];
+for(let desc of students){
+  ll.push(desc.marks)
+}
+
+ll.sort((a,b)=> b - a);
+document.writeln(ll);
+
+document.writeln("<br>")
+
+
+//only cse students
+for(let student of students){
+  if(student.department == "CSE")
+  document.writeln(student.name)
+}
+
+
+//display elemsnts in table 
+
+let tdisplay = document.querySelector("#studenttable tbody");
+for(let stud of students){
+  let row = document.createElement("tr");
+
+  let tdname = document.createElement("td");
+  tdname.textContent=stud.name;
+
+  let tdmarks = document.createElement("td");
+  tdmarks.textContent = stud.marks;
+
+  let tddept = document.createElement("td");
+  tddept.textContent = stud.department;
+
+  row.appendChild(tdname);
+  row.appendChild(tdmarks);
+  row.appendChild(tddept);
+
+  tdisplay.appendChild(row);
+
+}
+
+
+//Adding new student details
+
+// Adding new student details
+let newstud = {
+  id: students.length + 1,
+  name: "Bhanu",
+  marks: 89,
+  department: "CSE"
+};
+
+students.push(newstud);
+
+// UPDATE TABLE WITH ONLY NEW STUDENT
+let newRow = document.createElement("tr");
+
+let n1 = document.createElement("td");
+n1.textContent = newstud.name;
+
+let n2 = document.createElement("td");
+n2.textContent = newstud.marks;
+
+let n3 = document.createElement("td");
+n3.textContent = newstud.department;
+
+newRow.appendChild(n1);
+newRow.appendChild(n2);
+newRow.appendChild(n3);
+
+tdisplay.appendChild(newRow);
+
+document.writeln("<br>")
+let tdisplays = document.querySelector("#studenttable tbody");
+
+for (let stud of students) {
+  let row = document.createElement("tr");
+
+  //  Highlight failed students
+  if (stud.marks < 50) {
+    row.style.color = "red";
+    row.style.fontWeight = "bold";
+  }
+
+  let tdname = document.createElement("td");
+  tdname.textContent = stud.name;
+
+  let tdmarks = document.createElement("td");
+  tdmarks.textContent = stud.marks;
+
+  let tddept = document.createElement("td");
+  tddept.textContent = stud.department;
+
+  row.appendChild(tdname);
+  row.appendChild(tdmarks);
+  row.appendChild(tddept);
+
+  tdisplay.appendChild(row);
+}
+
+
+
+
+
+
+
+
+
+  </script>
+</html>
