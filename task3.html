@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Todo List</title>
+</head>
+<body>
+
+  <h2>Todo List</h2>
+
+  <input type="text" id="todoInput" placeholder="Enter todo">
+  <button onclick="addTodo()">Add</button>
+
+  <ul id="todoList"></ul>
+
+  <script>
+    // array to store todos
+    let todos = [];
+
+    function addTodo() {
+      let input = document.getElementById("todoInput");
+      let task = input.value;
+
+      if (task === "") {
+        alert("Please enter a task");
+        return;
+      }
+
+      // add to array
+      todos.push(task);
+
+      // display updated list
+      displayTodos();
+
+      input.value = "";
+    }
+
+    function displayTodos() {
+      let ul = document.getElementById("todoList");
+      ul.innerHTML = "";
+
+      for (let todo of todos) {
+        let li = document.createElement("li");
+        li.textContent = todo;
+        ul.appendChild(li);
+      }
+    }
+  </script>
+
+</body>
+</html>
