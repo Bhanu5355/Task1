@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 1</title>
+</head>
+<body>
+
+<h2>Space Launch Information Dashboard</h2>
+
+<button onclick="loadLaunch()">Load Launch</button>
+
+<p id="loading" style="display:none;">Loading launch details...</p>
+<p id="error" style="color:red;"></p>
+
+<ul id="launchList"></ul>
+
+<script>
+function loadLaunch() {
+  const loading = document.getElementById("loading");
+  const error = document.getElementById("error");
+  const list = document.getElementById("launchList");
+
+  loading.style.display = "block";
+  error.innerHTML = "";
+  list.innerHTML = "";
+
+  fetch("https://api.spacexdata.com/v4/launches/latest")
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      return response.json();
+    })
+    .then(function (launch) {
+      const li = document.createElement("li");
+      li.textContent = `Mission Name: ${launch.name}`;
+      list.appendChild(li);
+
+      loading.style.display = "none";
+    })
+    .catch(function (err) {
+      loading.style.display = "none";
+      error.textContent = err.message;
+      console.log("error while fetching launch", err);
+    });
+}
+</script>
+
+</body>
+</html>
